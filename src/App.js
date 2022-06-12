@@ -23,8 +23,8 @@ function App() {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        <Link to={'/'}>홈</Link>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <Link to={'detail'}>상세페이지</Link>
+                        <Nav.Link onClick={() => {navigate('/')}}>Home</Nav.Link>
+                        <Nav.Link onClick={() => {navigate('/detail')}}>Detail</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Container>
@@ -48,8 +48,22 @@ function App() {
                 </>
             } />
 
-                    <Route path={'/detail'} element={<Detail/>}></Route>
-                </Routes>
+            <Route path={'/detail'} element={<Detail/>}></Route>
+
+            {/*nested routes*/}
+            <Route path={'/detail'} element={<About/>}>
+                <Route path={'member'} element={<div>Member</div>}></Route>
+                <Route path={'location'} element={<div>Location</div>}></Route>
+            </Route>
+
+            <Route path={'/event'} element={<Event></Event>}>
+                <Route path={'one'} element={<div>첫 주문시 양배추즙 서비스</div>}/>
+                <Route path={'two'} element={<div>생일 기념 쿠폰 받기</div>}/>
+            </Route>
+
+            <Route path={'*'} element={<div>없는 페이지입니다.</div>}></Route>
+
+        </Routes>
     </div>
   );
 }
@@ -62,6 +76,24 @@ function Card(props){
             <h4>{props.shoes.title}</h4>
             <p>{props.shoes.content}</p>
             <h5>{props.shoes.price}</h5>
+        </div>
+    )
+}
+
+function About(){
+    return(
+        <div>
+            <h4>회사정보</h4>
+            <Outlet></Outlet>
+        </div>
+    )
+}
+
+function Event(){
+    return(
+        <div>
+            <h4>오늘의 이벤트</h4>
+            <Outlet></Outlet>
         </div>
     )
 }
