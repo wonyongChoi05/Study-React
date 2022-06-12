@@ -1,11 +1,14 @@
 import './App.css';
-import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
+import {useState} from "react";
+import data from "./data";
 
 function App() {
+
+    let[shoes] = useState(data);
+
   return (
     <div className="App">
         <Navbar bg="light" expand="lg">
@@ -25,25 +28,31 @@ function App() {
 
         <div className={"container"}>
             <div className={'row'}>
-                <div className={'col-md-4'}>
-                    <img src={"https://codingapple1.github.io/shop/shoes1.jpg"} width={'80%'} alt={"https://codingapple1.github.io/shop/shoes1.jpg"}/>
-                    <h4>상품명</h4>
-                    <p>상품설명</p>
-                </div>
-                <div className={'col-md-4'}>
-                    <img src={"https://codingapple1.github.io/shop/shoes2.jpg"} width={'80%'} alt={"https://codingapple1.github.io/shop/shoes1.jpg"}/>
-                    <h4>상품명</h4>
-                    <p>상품설명</p>
-                </div>
-                <div className={'col-md-4'}>
-                    <img src={"https://codingapple1.github.io/shop/shoes3.jpg"} width={'80%'} alt={"https://codingapple1.github.io/shop/shoes1.jpg"}/>
-                    <h4>상품명</h4>
-                    <p>상품설명</p>
-                </div>
+                {/*<Card shoes = {shoes[1]} i = {2}></Card>*/}
+                {/*<Card shoes = {shoes[2]} i = {3}></Card>*/}
+                {
+                    shoes.map((a, i) => {
+                        return (
+                            <Card shoes = {shoes[i]} i = {i}></Card>
+                        )
+                    })
+                }
             </div>
         </div>
     </div>
   );
+}
+
+function Card(props){
+    return (
+        <div className={'col-md-4'}>
+            <img src={'https://codingapple1.github.io/shop/shoes' + (props.i + 1) + '.jpg'}
+                 width={'80%'} alt={'https://codingapple1.github.io/shop/shoes' + props.i + '.jpg'}/>
+            <h4>{props.shoes.title}</h4>
+            <p>{props.shoes.content}</p>
+            <h5>{props.shoes.price}</h5>
+        </div>
+    )
 }
 
 export default App;
